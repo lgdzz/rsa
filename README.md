@@ -3,12 +3,12 @@ rsa加密解密
 
 ### 生成RSA私钥
 ```
-# openssl genrsa -out rsa_private.key 2048
+# openssl genrsa -out rsa_private.pem 1024
 ```
 
 ### 生成RSA公钥
 ```
-openssl rsa -in rsa_private.key -pubout -out rsa_public.key
+# openssl rsa -in rsa_private.pem -out rsa_public.pem -pubout
 ```
 
 ```
