@@ -1,6 +1,6 @@
 {
   "name": "lgdz/rsa",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "非对称加密解密",
   "type": "library",
   "license": "MIT",
