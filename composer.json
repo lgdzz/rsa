@@ -1,0 +1,16 @@
+{
+  "name": "lgdz/rsa",
+  "version": "1.0.0",
+  "description": "非对称加密解密",
+  "type": "library",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "lgdz\\": "src"
+    }
+  }
+}
