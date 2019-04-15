@@ -7,7 +7,7 @@
 
 namespace lgdz;
 
-class Ras
+class Rsa
 {
     private $private_key = '';
     private $public_key = '';
