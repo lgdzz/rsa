@@ -5,6 +5,8 @@
  * Date: 2019/4/15
  */
 
+namespace lgdz;
+
 class Ras
 {
     private $private_key = '';
