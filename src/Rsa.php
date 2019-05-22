@@ -9,8 +9,8 @@ namespace lgdz;
 
 class Rsa
 {
-    private $private_key = '';
-    private $public_key = '';
+    protected $private_key = '';
+    protected $public_key = '';
 
     public function setPrivateKey(string $private_key)
     {
