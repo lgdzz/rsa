@@ -9,27 +9,27 @@ namespace lgdz;
 
 class Rsa
 {
-    protected $private_key = '';
-    protected $public_key = '';
+    protected $privateKey = '';
+    protected $publicKey = '';
 
-    public function setPrivateKey(string $private_key)
+    public function setPrivateKey(string $privateKey)
     {
-        $this->private_key = $private_key;
+        $this->privateKey = $privateKey;
         return $this;
     }
 
-    public function setPublicKey(string $public_key)
+    public function setPublicKey(string $publicKey)
     {
-        $this->public_key = $public_key;
+        $this->publicKey = $publicKey;
         return $this;
     }
 
     public function privateEncrypt(string $decrypted)
     {
-        return $this->_usePrivateKey(function ($private_id) use ($decrypted) {
+        return $this->_usePrivateKey(function ($privateId) use ($decrypted) {
             $encrypted = '';
             foreach (str_split($decrypted, 117) as $chunk) {
-                openssl_private_encrypt($chunk, $temp, $private_id);
+                openssl_private_encrypt($chunk, $temp, $privateId);
                 $encrypted .= $temp;
             }
             return $this->urlsafeB64encode($encrypted);
@@ -38,10 +38,10 @@ class Rsa
 
     public function privateDecrypt(string $encrypted)
     {
-        return $this->_usePrivateKey(function ($private_id) use ($encrypted) {
+        return $this->_usePrivateKey(function ($privateId) use ($encrypted) {
             $decrypted = '';
             foreach (str_split($this->urlsafeB64decode($encrypted), 128) as $chunk) {
-                openssl_private_decrypt($chunk, $temp, $private_id);
+                openssl_private_decrypt($chunk, $temp, $privateId);
                 $decrypted .= $temp;
             }
             return $decrypted;
@@ -50,10 +50,10 @@ class Rsa
 
     public function publicEncrypt(string $decrypted)
     {
-        return $this->_usePublicKey(function ($public_id) use ($decrypted) {
+        return $this->_usePublicKey(function ($publicId) use ($decrypted) {
             $encrypted = '';
             foreach (str_split($decrypted, 117) as $chunk) {
-                openssl_public_encrypt($chunk, $temp, $public_id);
+                openssl_public_encrypt($chunk, $temp, $publicId);
                 $encrypted .= $temp;
             }
             return $this->urlsafeB64encode($encrypted);
@@ -62,10 +62,10 @@ class Rsa
 
     public function publicDecrypt(string $encrypted)
     {
-        return $this->_usePublicKey(function ($public_id) use ($encrypted) {
+        return $this->_usePublicKey(function ($publicId) use ($encrypted) {
             $decrypted = '';
             foreach (str_split($this->urlsafeB64decode($encrypted), 128) as $chunk) {
-                openssl_public_decrypt($chunk, $temp, $public_id);
+                openssl_public_decrypt($chunk, $temp, $publicId);
                 $decrypted .= $temp;
             }
             return $decrypted;
@@ -74,25 +74,25 @@ class Rsa
 
     private function _usePrivateKey($func)
     {
-        $private_id = openssl_pkey_get_private($this->private_key);
-        if (false === $private_id) {
+        $privateId = openssl_pkey_get_private($this->privateKey);
+        if (false === $privateId) {
             return false;
         } else {
-            return $func($private_id);
+            return $func($privateId);
         }
     }
 
     private function _usePublicKey($func)
     {
-        $public_id = openssl_pkey_get_public($this->public_key);
-        if (false === $public_id) {
+        $publicId = openssl_pkey_get_public($this->publicKey);
+        if (false === $publicId) {
             return false;
         } else {
-            return $func($public_id);
+            return $func($publicId);
         }
     }
 
-    protected function urlsafeB64encode($string)
+    public function urlsafeB64encode($string)
     {
         $data = base64_encode($string);
         $data = str_replace(array('+', '/', '='), array('-', '_', ''), $data);
@@ -100,7 +100,7 @@ class Rsa
     }
 
 
-    protected function urlsafeB64decode($string)
+    public function urlsafeB64decode($string)
     {
         $data = str_replace(array('-', '_'), array('+', '/'), $string);
         $mod4 = strlen($data) % 4;

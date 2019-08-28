@@ -1,12 +1,13 @@
 {
   "name": "lgdz/rsa",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "非对称加密解密",
   "type": "library",
   "license": "MIT",
   "minimum-stability": "stable",
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "ext-openssl": "*"
   },
   "autoload": {
     "psr-4": {
